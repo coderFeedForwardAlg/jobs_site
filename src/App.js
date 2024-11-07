@@ -1,6 +1,16 @@
 import { useState } from "react";
 function App() {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState([]);
+  const [compnayName, setCompnayName] = useState([]);
+  const [didRespond, setDidRespond] = useState([]);
+  const [whereApplied, setWhereApplied] = useState([]);
+  const [password, setPassword] = useState([]);
+  const [username, setUsername] = useState([]);
+  const [contactName, setContactName] = useState([]);
+  const [contactEmail, setContactEmail] = useState([]);
+  const [nextInterviewTime, setNextInterviewTime] = useState([]);
+
+
 
   const [retern, setReturn] = useState("");
 
@@ -8,34 +18,47 @@ function App() {
     setTitle(event.target.value);
   };
 
+
+
+    // function upload
   const upload = async (event) => {
     event.preventDefault();
     const data = {
-      "title": title
+      "title": title,
+      "compnayName": compnayName,
+      "didRespond": didRespond,
+      
     }
 
     try {
       
+      // this code block (whats in the {}) is setting up the request to the server
+      // this uri should be somthing you can hit from anywhere, if not somthing is wrong
+     // the "/insert_test" is the endpoint for post request
       const reqest = new Request("https://docapi.team-stingray.com/insret_test",  {
         
+        // path meaning we send data to server 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
-        mode: 'cors'
+        body: JSON.stringify(data), // make data a string from JSON (java script object notation)
+        mode: 'cors' // need this (not sure why but for security reasons)
       })
-      const res = await fetch(reqest);
+
+      // this line is making the request (that we jsut set up)
+      const res = await fetch(reqest); // actuy make the request 
       if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
       }
-      const json = await res.json();
+      const json = await res.json(); // turn response back into json and check to see if it worked
       console.log(json);
     }catch (error) {
       console.error(error.message);
     }
   }
 
+  // function get data 
   const get_data = async (event) => {
     event.preventDefault();
     const data = {
@@ -43,7 +66,10 @@ function App() {
     }
 
     try {
-      
+      // this works about the same way 
+      // but we use a get request so we just get data from the server 
+      // the "/recipes" is the endpoint for get request
+      // its recipes because I based this off a total of recipes and dident fix it sorry
       const reqest = new Request("https://docapi.team-stingray.com/recipes",  {
         
         method: "GET",
@@ -57,7 +83,10 @@ function App() {
         throw new Error(`Response status: ${res.status}`);
       }
       const json = await res.json();
-      setReturn(json[json.length - 1].title);
+      console.log(json);
+      const jobs = json.map(job => <li>{job.title}</li>);
+
+      setReturn(jobs); // this set return is only for react, probably want to do somthing else
     }catch (error) {
       console.error(error.message);
     }
@@ -71,7 +100,8 @@ function App() {
       <button onClick={upload}> upload data </button>
       <br/>
       <button onClick={get_data}> get the data </button>
-      {retern}
+      {/* {retern} */}
+      <ul>{retern}</ul>
     </div>
   );
 }
