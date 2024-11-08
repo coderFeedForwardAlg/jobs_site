@@ -4,8 +4,7 @@ function App() {
   const [compnayName, setCompnayName] = useState([]);
   const [didRespond, setDidRespond] = useState([]);
   const [whereApplied, setWhereApplied] = useState([]);
-  const [password, setPassword] = useState([]);
-  const [username, setUsername] = useState([]);
+  
   const [contactName, setContactName] = useState([]);
   const [contactEmail, setContactEmail] = useState([]);
   const [nextInterviewTime, setNextInterviewTime] = useState([]);
@@ -17,7 +16,29 @@ function App() {
   const updateTitle = (event) => {
     setTitle(event.target.value);
   };
+  const updateCompany = (event) => {
+    setCompnayName(event.target.value);
+  };
 
+  const updateRespond = (event) => {
+    setDidRespond(event.target.value);
+  };
+
+  const updateApplied = (event) => {
+    setWhereApplied(event.target.value);
+  };
+
+  const updateName = (event) => {
+    setContactName(event.target.value);
+  };
+
+  const updateEmail= (event) => {
+    setContactEmail(event.target.value);
+  };
+
+  const updateTime = (event) => {
+    setNextInterviewTime(event.target.value);
+  };
 
 
     // function upload
@@ -27,6 +48,10 @@ function App() {
       "title": title,
       "compnayName": compnayName,
       "didRespond": didRespond,
+      "whereApplied": whereApplied,
+      "contactName": contactName,
+      "contactEmail": contactEmail,
+      "nextInerviewTime": nextInterviewTime
       
     }
 
@@ -84,19 +109,51 @@ function App() {
       }
       const json = await res.json();
       console.log(json);
-      const jobs = json.map(job => <li>{job.title}</li>);
+      const jobs = json.map(job =>  <div>
+        <li>{job.title} {job.compnayName}</li>
+        
+        </div>);
 
       setReturn(jobs); // this set return is only for react, probably want to do somthing else
     }catch (error) {
       console.error(error.message);
     }
   }
+  // "title": title,
+  // "compnayName": compnayName,
+  // "didRespond": didRespond,
+  // "whereApplied": whereApplied,
+  // "password": password,
+  // "username": username,
+  // "contactName": contactName,
+  // "contactEmail": contactEmail,
+  // "nextInerviewTime": nextInterviewTime
   
   return (
     <div>
-      hello world
-      <input type="text" value={title} onChange={updateTitle} />
-      <p>You entered: {title}</p>
+      <h2> Enter you job info</h2> <br/>
+      Title: <br/>
+      <input type="text" value={title} onChange={updateTitle} />  <br/><br/>
+      
+      Company Name: <br/>
+      <input type="text" value={compnayName} onChange={updateCompany} /> <br/><br/>
+
+      Did they respond: <br/>
+      <input type="text" value={didRespond} onChange={updateRespond} /><br/><br/>
+
+      Where Did you apply: <br/>
+      <input type="text" value={whereApplied} onChange={updateApplied} /><br/><br/>
+
+      Contact Nam: <br/>
+      <input type="text" value={contactName} onChange={updateName} /><br/><br/>
+
+      Contact Email: <br/>
+      <input type="text" value={contactEmail} onChange={updateEmail} /><br/><br/>
+
+      Time of next interview: <br/>
+      <input type="text" value={nextInterviewTime} onChange={updateTime} /><br/><br/>
+
+
       <button onClick={upload}> upload data </button>
       <br/>
       <button onClick={get_data}> get the data </button>
