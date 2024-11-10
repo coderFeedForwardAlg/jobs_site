@@ -7,13 +7,13 @@ function App() {
   
   return (
     <div>
-       {/* <BrowserRouter>
+        <BrowserRouter>
         <Routes>
             {/* <Route path="/" element={<Login/>} /> */}
-            {/* <Route path="/" element={<AddJob/>} /> */}
+             <Route path="/" element={<AddJob/>} />
             {/* <Route path="/" element={<SeeJobs/>} /> */}
-          {/* </Routes> */}
-        {/* </BrowserRouter> */}
+           </Routes>
+         </BrowserRouter>
         <AddJob/>
     </div>
   );
