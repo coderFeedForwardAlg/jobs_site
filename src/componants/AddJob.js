@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 function Addjob() {
   const [title, setTitle] = useState([]);
   const [compnayName, setCompnayName] = useState([]);
@@ -84,41 +85,7 @@ function Addjob() {
   }
 
   // function get data 
-  const get_data = async (event) => {
-    event.preventDefault();
-    const data = {
-      "title": title
-    }
-
-    try {
-      // this works about the same way 
-      // but we use a get request so we just get data from the server 
-      // the "/recipes" is the endpoint for get request
-      // its recipes because I based this off a total of recipes and dident fix it sorry
-      const reqest = new Request("https://docapi.team-stingray.com/recipes",  {
-        
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: 'cors'
-      })
-      const res = await fetch(reqest);
-      if (!res.ok) {
-        throw new Error(`Response status: ${res.status}`);
-      }
-      const json = await res.json();
-      console.log(json);
-      const jobs = json.map(job =>  <div>
-        <li>{job.title} {job.compnayName}</li>
-        
-        </div>);
-
-      setReturn(jobs); // this set return is only for react, probably want to do somthing else
-    }catch (error) {
-      console.error(error.message);
-    }
-  }
+  
   // "title": title,
   // "compnayName": compnayName,
   // "didRespond": didRespond,
@@ -130,35 +97,54 @@ function Addjob() {
   // "nextInerviewTime": nextInterviewTime
   
   return (
-    <div>
+    <div >
       <h2> Enter you job info</h2> <br/>
+      <div style={{display: "flex", alignItems: "space-between"}}> 
+        <div style={{display: "flex", flexDirection: "column"}}>
       Title: <br/>
-      <input type="text" value={title} onChange={updateTitle} />  <br/><br/>
+      <input type="text" value={title} onChange={updateTitle} />  
+      </div>
       
+      <div style={{display: "flex", flexDirection: "column"}}>
       Company Name: <br/>
-      <input type="text" value={compnayName} onChange={updateCompany} /> <br/><br/>
+      <input type="text" value={compnayName} onChange={updateCompany} />
+      </div>
 
+      <div style={{display: "flex", flexDirection: "column"}}>
       Did they respond: <br/>
-      <input type="text" value={didRespond} onChange={updateRespond} /><br/><br/>
+      <input type="text" value={didRespond} onChange={updateRespond} />
+      </div>
 
+      <div style={{display: "flex", flexDirection: "column"}}>
       Where Did you apply: <br/>
-      <input type="text" value={whereApplied} onChange={updateApplied} /><br/><br/>
+      <input type="text" value={whereApplied} onChange={updateApplied} />
+      </div>
 
+      <div style={{display: "flex", flexDirection: "column"}}>
       Contact Nam: <br/>
-      <input type="text" value={contactName} onChange={updateName} /><br/><br/>
+      <input type="text" value={contactName} onChange={updateName} />
+      </div>
 
+      <div style={{display: "flex", flexDirection: "column"}}>
       Contact Email: <br/>
-      <input type="text" value={contactEmail} onChange={updateEmail} /><br/><br/>
+      <input type="text" value={contactEmail} onChange={updateEmail} />
+      </div>
 
-      Time of next interview: <br/>
-      <input type="text" value={nextInterviewTime} onChange={updateTime} /><br/><br/>
+
+      <div style={{display: "flex", flexDirection: "column"}}>
+      Time of next interview: 
+      <input type="text" value={nextInterviewTime} onChange={updateTime} />
+      </div>
+      </div>
 
 
       <button onClick={upload}> upload data </button>
+      
       <br/>
-      <button onClick={get_data}> get the data </button>
+      
       {/* {retern} */}
       <ul>{retern}</ul>
+      <Link to="/see">See your jobs</Link>
     </div>
   );
 }

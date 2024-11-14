@@ -2,6 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import AddJob from "./componants/AddJob";
+import SeeJobs from "./componants/SeeJobs";
 function App() {
 
   
@@ -11,12 +12,10 @@ function App() {
         <Routes>
             {/* <Route path="/" element={<Login/>} /> */}
              <Route path="/" element={<AddJob/>} />
-            {/* <Route path="/" element={<SeeJobs/>} /> */}
+            <Route path="/see" element={<SeeJobs/>} />
            </Routes>
          </BrowserRouter>
-        <AddJob/>
-    </div>
-  );
-}
 
-export default App;
+        </div>)
+}
+export default App
